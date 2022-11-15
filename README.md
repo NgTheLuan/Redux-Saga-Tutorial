@@ -9,4 +9,7 @@
 - when call api in saga we use 2 option : _yeild_ or _call()_
 - We must use call(), it's working : `https://redux-saga.js.org/docs/api/`
 
-6. Different _fork_ & _spawn_
+6. Different _fork_ & _spawn_ ✅
+
+- fork is used to create attached forks
+- spawn is used to create detached forks
