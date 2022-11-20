@@ -1,3 +1,4 @@
+import { CssBaseline } from '@material-ui/core';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -12,6 +13,7 @@ const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <BrowserRouter>
+      <CssBaseline /> {/* reset style all browser */}
       <App />
     </BrowserRouter>
   </Provider>
