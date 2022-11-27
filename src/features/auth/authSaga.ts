@@ -1,19 +1,32 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { fork, take } from 'redux-saga/effects';
+import { delay, fork, take } from 'redux-saga/effects';
 import { authAction, LoginPayload } from './authSlice';
 
 function* handleLogin(payload: LoginPayload) {
-  console.log(payload);
+  yield delay(500);
+  localStorage.setItem('access_tooken', 'fake_tooken');
+
+  //redirect home page
 }
 
-function* handleLogout() {}
+function* handleLogout() {
+  yield delay(500);
+  localStorage.removeItem('access_tooken');
+
+  //redirect login page
+}
 
 function* watchLoginFlow() {
-  const action: PayloadAction<LoginPayload> = yield take(authAction.login.type);
-  yield fork(handleLogin, action.payload);
+  while (true) {
+    const isLogged = Boolean(localStorage.getItem('access_tooken'));
+    if (!isLogged) {
+      const action: PayloadAction<LoginPayload> = yield take(authAction.login.type);
+      yield fork(handleLogin, action.payload);
+    }
 
-  yield take(authAction.logout.type);
-  yield fork(handleLogout);
+    yield take(authAction.logout.type);
+    yield fork(handleLogout);
+  }
 }
 
 export default function* authSaga() {
