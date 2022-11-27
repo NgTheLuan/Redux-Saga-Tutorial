@@ -1,4 +1,6 @@
 import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core';
+import { useAppDispatch } from 'app/hooks';
+import { authAction } from '../authSlice';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -16,7 +18,18 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export function LoginPage() {
+  const dispatch = useAppDispatch();
   const classes = useStyle();
+
+  const handleLogin = () => {
+    dispatch(
+      authAction.login({
+        username: '162865',
+        password: 'luantgdd',
+      })
+    );
+  };
+
   return (
     <div className={classes.root}>
       <Paper elevation={1} className={classes.box}>
@@ -25,7 +38,7 @@ export function LoginPage() {
         </Typography>
 
         <Box mt={4}>
-          <Button fullWidth variant='contained' color='primary'>
+          <Button fullWidth variant='contained' color='primary' onClick={handleLogin}>
             Đăng nhập
           </Button>
         </Box>
